@@ -69,7 +69,7 @@ class VehicleModel:
       u: Speed [m/s]
 
     Returns:
-      Curvature factor [1/m]
+      Curvature [1/m]
     """
     return self.curvature_factor(u) * sa / self.sR
 
@@ -97,7 +97,7 @@ class VehicleModel:
       Steering wheel angle [rad]
     """
 
-    return curv * self.sR * 1.0 / self.curvature_factor(u)
+    return curv * self.sR / self.curvature_factor(u)
 
   def get_steer_from_yaw_rate(self, yaw_rate: float, u: float) -> float:
     """Calculates the required steering wheel angle for a given yaw_rate
@@ -119,8 +119,6 @@ class VehicleModel:
       sa: Steering wheel angle [rad]
       u: Speed [m/s]
 
-    Returns:
-      Yaw rate [rad/s]
     """
     return self.calc_curvature(sa, u) * u
 
