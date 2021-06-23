@@ -1,8 +1,6 @@
 #pragma once
 
 #include <QButtonGroup>
-#include <QPushButton>
-#include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -74,15 +72,15 @@ private:
   bool ui_setup_complete = false;
   bool show_advanced;
 
-  Network selectedNetwork;
-
   WifiUI* wifiWidget;
   WifiManager* wifi = nullptr;
   void attemptInitialization();
+  void requestScan();
+
+public slots:
+  void refreshSlot();
 
 private slots:
   void connectToNetwork(const Network &n);
-  void refresh();
   void wrongPassword(const QString &ssid);
 };
-
