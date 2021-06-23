@@ -118,7 +118,9 @@ class VehicleModel:
     Args:
       sa: Steering wheel angle [rad]
       u: Speed [m/s]
-
+    
+    Returns:
+      Yaw rate [rad/s]
     """
     return self.calc_curvature(sa, u) * u
 
