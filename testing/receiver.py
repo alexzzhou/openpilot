@@ -1,7 +1,6 @@
-import time
 import cereal.messaging as messaging
 
-sm = messaging.SubMaster(['sendcan', 'controlsState', 'carState','carControl', 'carEvents', 'carParams'])
+sm = messaging.SubMaster(['carState'], addr = "192.168.0.100")
 
 while True:
     sm.update(0)
