@@ -28,5 +28,7 @@ docker run --net=host\
   -e QT_X11_NO_MITSHM=1 \
   -w "$OPENPILOT_DIR/tools/sim" \
   $EXTRA_ARGS \
+  -v /home/alex/openpilot:/tmp/openpilot \
+  -v /home/alex/Documents:/tmp/Documents \
   ghcr.io/commaai/openpilot-sim:latest \
   /bin/bash -c "./tmux_script.sh $*"
