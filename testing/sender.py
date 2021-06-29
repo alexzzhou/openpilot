@@ -6,7 +6,6 @@ pm = messaging.PubMaster(['carVelo'])
 
 while True:
     sm.update(0)
-    #state = sm['carState'].vEgo
-    state = 5
-    pm.send('carVelo', bytes(state))
+    state = sm['carState']
+    pm.send('carVelo', state)
     time.sleep(1)
