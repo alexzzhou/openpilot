@@ -1,3 +1,4 @@
+import time
 import cereal.messaging as messaging
 
 sm = messaging.SubMaster(['carState'], addr = "192.168.0.100")
