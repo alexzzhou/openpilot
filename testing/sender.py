@@ -1,6 +1,10 @@
 import cereal.messaging as messaging
 
-pm = messaging.PubMaster(['sensorEvents'])
-dat = messaging.new_message('sensorEvents', size=1)
-dat.sensorEvents[0] = {"gyro": {"v": [0.1, -0.1, 0.1]}}
-pm.send('sensorEvents', dat)
+sm = messaging.SubMaster(['carState'])
+pm = messaging.PubMaster(['carVelo'])
+
+while True:
+    sm.update(0)
+    state = sm['carState']
+    pm.send('carVelo', state)
+    time.sleep(1)
