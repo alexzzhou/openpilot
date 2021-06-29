@@ -11,7 +11,12 @@ def new_port(port: int):
   port += STARTING_PORT
   return port + 1 if port >= RESERVED_PORT else port
 
-service_list
+
+class Service:
+  def __init__(self, port: int, should_log: bool, frequency: float, decimation: Optional[int] = None):
+    self.port = port
+    self.should_log = should_log
+    self.frequency = frequency
     self.decimation = decimation
 
 
