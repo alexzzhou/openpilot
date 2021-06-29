@@ -1324,6 +1324,7 @@ struct Event {
     sendcan @17 :List(CanData);
     liveCalibration @19 :LiveCalibrationData;
     carState @22 :Car.CarState;
+    carVelo @79 :Car.CarState;
     carControl @23 :Car.CarControl;
     longitudinalPlan @24 :LongitudinalPlan;
     lateralPlan @64 :LateralPlan;

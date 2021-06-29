@@ -11,12 +11,7 @@ def new_port(port: int):
   port += STARTING_PORT
   return port + 1 if port >= RESERVED_PORT else port
 
-
-class Service:
-  def __init__(self, port: int, should_log: bool, frequency: float, decimation: Optional[int] = None):
-    self.port = port
-    self.should_log = should_log
-    self.frequency = frequency
+service_list
     self.decimation = decimation
 
 
@@ -37,6 +32,7 @@ services = {
   "liveCalibration": (True, 4., 4),
   "androidLog": (True, 0., 1),
   "carState": (True, 100., 10),
+  "carVelo": (True, 100., 10),
   "carControl": (True, 100., 10),
   "longitudinalPlan": (True, 20., 2),
   "liveLocation": (True, 0., 1),
