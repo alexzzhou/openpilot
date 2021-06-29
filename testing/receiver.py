@@ -5,6 +5,6 @@ sm = messaging.SubMaster(['carVelo'])
 
 while True:
     sm.update(0)
-    state = sm['carVelo']
+    state = sm['carVelo'].vEgo
     print(state)
     time.sleep(1)
