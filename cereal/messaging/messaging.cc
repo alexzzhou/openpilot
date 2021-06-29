@@ -9,7 +9,8 @@ const bool MUST_USE_ZMQ = false;
 #endif
 
 bool messaging_use_zmq(){
-  return std::getenv("ZMQ") || MUST_USE_ZMQ;
+  //return std::getenv("ZMQ") || MUST_USE_ZMQ;
+  return true;
 }
 
 Context * Context::create(){
