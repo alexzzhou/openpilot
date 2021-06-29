@@ -1,10 +1,10 @@
 import time
 import cereal.messaging as messaging
 
-sm = messaging.SubMaster(['carState'], addr = "192.168.0.100")
+sm = messaging.SubMaster(['carVelo'])
 
 while True:
     sm.update(0)
-    state = sm['carState']
+    state = sm['carVelo']
     print(state)
     time.sleep(1)
