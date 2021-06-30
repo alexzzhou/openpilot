@@ -1,6 +1,8 @@
 #include "messaging.h"
 #include "impl_zmq.h"
 #include "impl_msgq.h"
+#include <iostream>
+using namespace std;
 
 #ifdef __APPLE__
 const bool MUST_USE_ZMQ = true;
@@ -45,6 +47,7 @@ SubSocket * SubSocket::create(){
 SubSocket * SubSocket::create(bool use_zmq){
   SubSocket * s;
   if (use_zmq || messaging_use_zmq()){
+    cout << "Hello World!";
     s = new ZMQSubSocket();
   } else {
     s = new MSGQSubSocket();
