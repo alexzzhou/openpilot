@@ -55,7 +55,7 @@ public:
   static PubSocket * create();
   static PubSocket * create(bool use_zmq);
   static PubSocket * create(Context * context, std::string endpoint, bool check_endpoint=true);
-  static PubSocket * create(Context * context, std::string endpoint, , bool use_zmq, bool check_endpoint = true);
+  static PubSocket * create(Context * context, std::string endpoint, bool use_zmq, bool check_endpoint = true);
   static PubSocket * create(Context * context, std::string endpoint, int port, bool check_endpoint=true);
   virtual ~PubSocket(){};
 };
