@@ -10,13 +10,15 @@
 #define MSGS 100
 
 int main() {
-  Context * c = Context::create();
-  SubSocket * sub_sock = SubSocket::create(c, "controlsState", use_zmq = true);
-  PubSocket * pub_sock = PubSocket::create(c, "controlsState", use_zmq = true);
+  Context * csub = Context::create();
+  SubSocket * sub_sock = SubSocket::create(csub, "controlsState", "127.0.0.1", false, true, false);
+
+  Context * cpub = Context::create(true);
+  PubSocket * pub_sock = PubSocket::create(c, "controlsState", "127.0.0.1", false, true, true);
 
   char data[8];
 
-  Poller * poller = Poller::create({sub_sock}, true);
+  Poller * poller = Poller::create({sub_sock});
 
   auto start = std::chrono::steady_clock::now();
 
