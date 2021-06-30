@@ -36,6 +36,10 @@ int main() {
     }
   }
 
+  while (true) {
+    Message * m = p->receive();
+  }
+
 
   auto end = std::chrono::steady_clock::now();
   double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count() / 1e9;
