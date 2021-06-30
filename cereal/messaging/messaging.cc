@@ -11,7 +11,7 @@ const bool MUST_USE_ZMQ = false;
 #endif
 
 bool messaging_use_zmq(){
-  return std::getenv("ZMQ") || MUST_USE_ZMQ || true;
+  return std::getenv("ZMQ") || MUST_USE_ZMQ;
 }
 
 Context * Context::create(){
@@ -47,7 +47,6 @@ SubSocket * SubSocket::create(){
 SubSocket * SubSocket::create(bool use_zmq){
   SubSocket * s;
   if (use_zmq || messaging_use_zmq()){
-    cout << "Hello World!";
     s = new ZMQSubSocket();
   } else {
     s = new MSGQSubSocket();
