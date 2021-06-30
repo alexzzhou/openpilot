@@ -4,8 +4,8 @@
 #include <thread>
 #include <cassert>
 
-#include "messaging.h"
-#include "impl_zmq.h"
+#include "/data/openpilot/cereal/messaging/messaging.h"
+#include "/data/openpilot/cereal/messaging/impl_zmq.h"
 
 #define MSGS 100
 
