@@ -64,7 +64,7 @@ SubSocket * SubSocket::create(Context * context, std::string endpoint, std::stri
   }
 }
 
-SubSocket * SubSocket::create(Context * context, std::string endpoint, bool use_zmq, std::string address, bool conflate, bool check_endpoint){
+SubSocket * SubSocket::create(Context * context, std::string endpoint, std::string address, bool conflate, bool check_endpoint, bool use_zmq){
   SubSocket *s = SubSocket::create(use_zmq);
   int r = s->connect(context, endpoint, address, conflate, check_endpoint);
 
@@ -108,7 +108,7 @@ PubSocket * PubSocket::create(Context * context, std::string endpoint, bool chec
   }
 }
 
-PubSocket * PubSocket::create(Context * context, std::string endpoint, bool use_zmq, bool check_endpoint){
+PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint, bool use_zmq){
   PubSocket *s = PubSocket::create(use_zmq);
   int r = s->connect(context, endpoint, check_endpoint);
 
