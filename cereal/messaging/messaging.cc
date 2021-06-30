@@ -23,6 +23,16 @@ Context * Context::create(){
   return c;
 }
 
+Context * Context::create(bool use_zmq){
+  Context * c;
+  if (use_zmq){
+    c = new ZMQContext();
+  } else {
+    c = new MSGQContext();
+  }
+  return c;
+}
+
 SubSocket * SubSocket::create(){
   SubSocket * s;
   if (messaging_use_zmq()){
@@ -33,8 +43,30 @@ SubSocket * SubSocket::create(){
   return s;
 }
 
+SubSocket * SubSocket::create(bool use_zmq){
+  SubSocket * s;
+  if (use_zmq){
+    s = new ZMQSubSocket();
+  } else {
+    s = new MSGQSubSocket();
+  }
+  return s;
+}
+
 SubSocket * SubSocket::create(Context * context, std::string endpoint, std::string address, bool conflate, bool check_endpoint){
   SubSocket *s = SubSocket::create();
+  int r = s->connect(context, endpoint, address, conflate, check_endpoint);
+
+  if (r == 0) {
+    return s;
+  } else {
+    delete s;
+    return NULL;
+  }
+}
+
+SubSocket * SubSocket::create(Context * context, std::string endpoint, bool use_zmq, std::string address, bool conflate, bool check_endpoint){
+  SubSocket *s = SubSocket::create(use_zmq);
   int r = s->connect(context, endpoint, address, conflate, check_endpoint);
 
   if (r == 0) {
@@ -55,8 +87,30 @@ PubSocket * PubSocket::create(){
   return s;
 }
 
+PubSocket * PubSocket::create(bool use_zmq){
+  PubSocket * s;
+  if (use_zmq){
+    s = new ZMQPubSocket();
+  } else {
+    s = new MSGQPubSocket();
+  }
+  return s;
+}
+
 PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint){
   PubSocket *s = PubSocket::create();
+  int r = s->connect(context, endpoint, check_endpoint);
+
+  if (r == 0) {
+    return s;
+  } else {
+    delete s;
+    return NULL;
+  }
+}
+
+PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint, bool use_zmq){
+  PubSocket *s = PubSocket::create(use_zmq);
   int r = s->connect(context, endpoint, check_endpoint);
 
   if (r == 0) {
@@ -77,8 +131,27 @@ Poller * Poller::create(){
   return p;
 }
 
+Poller * Poller::create(bool use_zmq){
+  Poller * p;
+  if (use_zmq){
+    p = new ZMQPoller();
+  } else {
+    p = new MSGQPoller();
+  }
+  return p;
+}
+
 Poller * Poller::create(std::vector<SubSocket*> sockets){
   Poller * p = Poller::create();
+
+  for (auto s : sockets){
+    p->registerSocket(s);
+  }
+  return p;
+}
+
+Poller * Poller::create(std::vector<SubSocket*> sockets, bool use_zmq){
+  Poller * p = Poller::create(use_zmq);
 
   for (auto s : sockets){
     p->registerSocket(s);

@@ -18,6 +18,7 @@ class Context {
 public:
   virtual void * getRawContext() = 0;
   static Context * create();
+  static Context * create(bool use_zmq);
   virtual ~Context(){};
 };
 
@@ -39,7 +40,9 @@ public:
   virtual Message *receive(bool non_blocking=false) = 0;
   virtual void * getRawSocket() = 0;
   static SubSocket * create();
+  static SubSocket * create(bool use_zmq);
   static SubSocket * create(Context * context, std::string endpoint, std::string address="127.0.0.1", bool conflate=false, bool check_endpoint=true);
+  static SubSocket * create(Context * context, std::string endpoint, bool use_zmq, std::string address="127.0.0.1", bool conflate=false, bool check_endpoint=true);
   virtual ~SubSocket(){};
 };
 
@@ -50,7 +53,9 @@ public:
   virtual int send(char *data, size_t size) = 0;
   virtual bool all_readers_updated() = 0;
   static PubSocket * create();
+  static PubSocket * create(bool use_zmq);
   static PubSocket * create(Context * context, std::string endpoint, bool check_endpoint=true);
+  static PubSocket * create(Context * context, std::string endpoint, bool check_endpoint, bool use_zmq);
   static PubSocket * create(Context * context, std::string endpoint, int port, bool check_endpoint=true);
   virtual ~PubSocket(){};
 };
@@ -60,7 +65,9 @@ public:
   virtual void registerSocket(SubSocket *socket) = 0;
   virtual std::vector<SubSocket*> poll(int timeout) = 0;
   static Poller * create();
+  static Poller * create(bool use_zmq);
   static Poller * create(std::vector<SubSocket*> sockets);
+  static Poller * create(std::vector<SubSocket*> sockets , bool use_zmq);
   virtual ~Poller(){};
 };
 
