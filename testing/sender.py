@@ -9,6 +9,6 @@ while True:
     state = sm['carState']
     msg = messaging.new_message('carVelo')
     msg.carVelo = state
-    print(msg)
+    print(msg.carVelo.vEgo)
     pm.send('carVelo', msg)
     time.sleep(1)
