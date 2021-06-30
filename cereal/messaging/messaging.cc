@@ -108,7 +108,7 @@ PubSocket * PubSocket::create(Context * context, std::string endpoint, bool chec
   }
 }
 
-PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint, bool use_zmq){
+PubSocket * PubSocket::create(Context * context, std::string endpoint, bool use_zmq, bool check_endpoint){
   PubSocket *s = PubSocket::create(use_zmq);
   int r = s->connect(context, endpoint, check_endpoint);
 
