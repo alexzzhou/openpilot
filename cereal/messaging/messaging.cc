@@ -9,7 +9,7 @@ const bool MUST_USE_ZMQ = false;
 #endif
 
 bool messaging_use_zmq(){
-  return std::getenv("ZMQ") || MUST_USE_ZMQ;
+  return std::getenv("ZMQ") || MUST_USE_ZMQ || true;
 }
 
 Context * Context::create(){
@@ -24,7 +24,7 @@ Context * Context::create(){
 
 Context * Context::create(bool use_zmq){
   Context * c;
-  if (use_zmq){
+  if (use_zmq || messaging_use_zmq()){
     c = new ZMQContext();
   } else {
     c = new MSGQContext();
@@ -44,7 +44,7 @@ SubSocket * SubSocket::create(){
 
 SubSocket * SubSocket::create(bool use_zmq){
   SubSocket * s;
-  if (use_zmq){
+  if (use_zmq || messaging_use_zmq()){
     s = new ZMQSubSocket();
   } else {
     s = new MSGQSubSocket();
@@ -90,7 +90,7 @@ PubSocket * PubSocket::create(){
 
 PubSocket * PubSocket::create(bool use_zmq){
   PubSocket * s;
-  if (use_zmq){
+  if (use_zmq || messaging_use_zmq()){
     s = new ZMQPubSocket();
   } else {
     s = new MSGQPubSocket();
@@ -136,7 +136,7 @@ Poller * Poller::create(){
 
 Poller * Poller::create(bool use_zmq){
   Poller * p;
-  if (use_zmq){
+  if (use_zmq || messaging_use_zmq()){
     p = new ZMQPoller();
   } else {
     p = new MSGQPoller();
