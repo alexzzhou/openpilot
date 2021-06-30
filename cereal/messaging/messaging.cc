@@ -52,6 +52,7 @@ SubSocket * SubSocket::create(bool use_zmq){
   return s;
 }
 
+/*
 SubSocket * SubSocket::create(Context * context, std::string endpoint, std::string address, bool conflate, bool check_endpoint){
   SubSocket *s = SubSocket::create();
   int r = s->connect(context, endpoint, address, conflate, check_endpoint);
@@ -63,6 +64,7 @@ SubSocket * SubSocket::create(Context * context, std::string endpoint, std::stri
     return NULL;
   }
 }
+*/
 
 SubSocket * SubSocket::create(Context * context, std::string endpoint, std::string address, bool conflate, bool check_endpoint, bool use_zmq){
   SubSocket *s = SubSocket::create(use_zmq);
@@ -96,6 +98,7 @@ PubSocket * PubSocket::create(bool use_zmq){
   return s;
 }
 
+/*
 PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint){
   PubSocket *s = PubSocket::create();
   int r = s->connect(context, endpoint, check_endpoint);
@@ -107,6 +110,7 @@ PubSocket * PubSocket::create(Context * context, std::string endpoint, bool chec
     return NULL;
   }
 }
+*/
 
 PubSocket * PubSocket::create(Context * context, std::string endpoint, bool check_endpoint, bool use_zmq){
   PubSocket *s = PubSocket::create(use_zmq);
