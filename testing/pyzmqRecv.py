@@ -4,7 +4,7 @@ import zmq
 #  Socket to talk to server
 context = zmq.Context()
 socket = context.socket(zmq.SUB)
-socket.connect("tcp://localhost:9000")
+socket.connect("tcp://192.168.0.100:9000")
 
 
 socket.setsockopt_string(zmq.SUBSCRIBE, "")
