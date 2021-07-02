@@ -6,7 +6,7 @@ sm = messaging.SubMaster(['carState'])
 
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
-socket.bind("tcp://10.34.34.26:5556")
+socket.bind("tcp://10.34.34.26:9000")
 
 while True:
     sm.update(0)

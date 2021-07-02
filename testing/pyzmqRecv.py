@@ -4,7 +4,7 @@ import zmq
 #  Socket to talk to server
 context = zmq.Context()
 socket = context.socket(zmq.SUB)
-socket.connect("tcp://localhost:5556")
+socket.connect("tcp://localhost:9000")
 
 
 socket.setsockopt_string(zmq.SUBSCRIBE, "")
@@ -15,7 +15,3 @@ while True:
     string = socket.recv_string()
     print(string)
     time.sleep(1)
-    
-    
-
-
