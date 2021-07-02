@@ -9,7 +9,6 @@ socket.connect("tcp://192.168.0.100:9000")
 
 socket.setsockopt_string(zmq.SUBSCRIBE, "")
 
-# Process 5 updates
 
 while True:
     string = socket.recv_string()
