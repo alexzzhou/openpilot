@@ -13,4 +13,3 @@ socket.setsockopt_string(zmq.SUBSCRIBE, "")
 while True:
     string = socket.recv_string()
     print(string)
-    time.sleep(1)
