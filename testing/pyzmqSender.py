@@ -17,7 +17,8 @@ sm = messaging.SubMaster(['carState'])
 
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
-socket.bind("tcp://10.34.34.104:9000")
+current_ip = input("Current IP: ")
+socket.bind("tcp://"+current_ip+":9000")
 
 
 while True:
