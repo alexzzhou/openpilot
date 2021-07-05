@@ -15,5 +15,5 @@ while True:
     data = sm['carState']
     if data != None:
         print(type(data))
-        socket.send(data.to_bytes())
+        socket.send(data.to_bytes_packed())
     
