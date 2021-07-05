@@ -10,7 +10,8 @@ def to_json(data):
         "Acceleration": data.aEgo,
         "Gas" : data.gas,
     }
-    return json.dumps(dict)
+    print(dict)
+    return dict
 
 sm = messaging.SubMaster(['carState'])
 
@@ -23,5 +24,4 @@ while True:
     sm.update()
     data = sm['carState']
     if data != None:
-        print(data)
         socket.send_json(to_json(data))
