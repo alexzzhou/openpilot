@@ -12,7 +12,6 @@ def to_json(data):
         "vEgoRaw" : data.vEgoRaw,     
         "yawRate" : data.yawRate,     
         "standstill" : data.standstill,
-        "wheelSpeeds" : data.wheelSpeeds,
         "seq_number": 0
 
     }
