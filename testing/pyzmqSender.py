@@ -7,7 +7,7 @@ sock = messaging.sub_sock('carState')
 
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
-socket.bind("tcp://192.168.0.100:9000")
+socket.bind("tcp://10.34.34.104:9000")
 
 
 while True:
