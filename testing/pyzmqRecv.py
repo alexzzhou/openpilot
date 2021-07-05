@@ -1,6 +1,5 @@
 import time
 import zmq
-import capnp
 from cereal import log
 
 #  Socket to talk to server
@@ -13,5 +12,6 @@ socket.setsockopt(zmq.SUBSCRIBE, "")
 
 
 while True:
-    data = socket.recv()
+    data = socket.recv_json()
+    print(data)
     

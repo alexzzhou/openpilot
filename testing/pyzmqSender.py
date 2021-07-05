@@ -2,6 +2,15 @@ import time
 import cereal.messaging as messaging
 from cereal import log
 import zmq
+import json
+
+def to_json(data):
+    dict = {
+        "Velocity": data.vEgo,
+        "Acceleration": data.aEgo,
+        "Gas" : data.gas,
+    }
+    return json.dumps(dict)
 
 sm = messaging.SubMaster(['carState'])
 
@@ -14,6 +23,5 @@ while True:
     sm.update()
     data = sm['carState']
     if data != None:
-        print(type(data))
-        socket.send(data.to_bytes_packed())
-    
+        print(data)
+        socket.send_json(to_json(data))
