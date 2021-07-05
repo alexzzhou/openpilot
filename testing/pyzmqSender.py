@@ -6,7 +6,7 @@ import json
 
 def to_json(data):
     dict = {
-        "Velocity": data.vEgo,
+        "Velocitgy": data.vEgo,
         "Acceleration": data.aEgo,
         "Gas" : data.gas,
     }
@@ -24,5 +24,4 @@ socket.bind("tcp://"+current_ip+":9000")
 while True:
     sm.update()
     data = sm['carState']
-    if data != None:
-        socket.send_json(to_json(data))
+    socket.send_json(to_json(data))
