@@ -32,4 +32,4 @@ while True:
     data = sm['carState']
     msg = to_json(data)
     msg["seq_number"] = current_num
-    socket.send_json()
+    socket.send_json(msg)
