@@ -11,7 +11,7 @@ def to_json(data):
         "Gas" : data.gas,
     }
     print(dict)
-    return dict
+    return json.dumps(dict)
 
 sm = messaging.SubMaster(['carState'])
 
