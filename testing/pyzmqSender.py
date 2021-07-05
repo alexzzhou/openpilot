@@ -1,5 +1,6 @@
 import time
 import cereal.messaging as messaging
+from cereal import log
 import zmq
 
 sock = messaging.sub_sock('carState')
@@ -7,6 +8,7 @@ sock = messaging.sub_sock('carState')
 context = zmq.Context()
 socket = context.socket(zmq.PUB)
 socket.bind("tcp://192.168.0.100:9000")
+
 
 while True:
     data = messaging.recv_one_or_none(sock)
