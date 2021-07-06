@@ -24,9 +24,11 @@ socket = context.socket(zmq.PUB)
 current_ip = input("Current IP: ")
 socket.bind("tcp://"+current_ip+":9000")
 
-current_num = 1
+current_num = 0
 while True:
-    sm.update(1)
+    sm.update(10)
+    print(sm.updated['carState'])
+    
     if sm.updated['carState']:
         data = sm['carState']
         msg = to_json(data)
