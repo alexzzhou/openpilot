@@ -20,13 +20,12 @@ def format_cs(data):
 sm = messaging.SubMaster(['carState', 'liveLocationKalman'])
 
 context = zmq.Context()
+current_ip = input("Current IP: ")
 
 cs_socket = context.socket(zmq.PUB)
-current_ip = input("Current IP: ")
 cs_socket.bind("tcp://"+current_ip+":9000")
 
 l_socket = context.socket(zmq.PUB)
-current_ip = input("Current IP: ")
 l_socket.bind("tcp://"+current_ip+":9001")
 
 cs_seq = 0
