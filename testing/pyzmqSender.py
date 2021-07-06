@@ -47,10 +47,10 @@ while True:
         data = sm['liveLocationKalman']
         l_seq += 1
         msg = {
-            "position" : data.positionECEF.value,
+            "position" : (data.positionECEF.value[0], data.positionECEF.value[1], data.positionECEF.value[2]),
             "seq_number" : l_seq,
             "type" : "location"
         }
 
         print(msg)
-        cs_socket.send_json(msg)
+        l_socket.send_json(msg)
