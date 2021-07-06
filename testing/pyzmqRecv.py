@@ -9,8 +9,6 @@ socket.connect("tcp://"+current_ip+":9000")
 
 socket.setsockopt(zmq.SUBSCRIBE, b'')
 
-
-
 data = socket.recv_json()
 start_index = data["seq_number"]
 start = time.perf_counter()
@@ -18,9 +16,9 @@ start = time.perf_counter()
 while True:
     data = socket.recv_json()
     print(data)
-    if data["seq_number"] >= 5000:
+    if data["seq_number"] >= 50:
         break
 
 end = time.perf_counter()
 
-print((start-end)/5000-start_index)
+print((end-start)/(50-start_index))
