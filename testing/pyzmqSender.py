@@ -32,4 +32,5 @@ while True:
         msg = to_json(data)
         current_num += 1
         msg["seq_number"] = current_num
+        print(msg)
         socket.send_json(msg)
