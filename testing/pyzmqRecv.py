@@ -16,9 +16,9 @@ start = time.perf_counter()
 while True:
     data = socket.recv_json()
     print(data)
-    if data["seq_number"] >= 5000:
+    if data["seq_number"] >= 950:
         break
 
 end = time.perf_counter()
 
-print((end-start)/(5000-start_index))
+print((end-start)/(950-start_index))

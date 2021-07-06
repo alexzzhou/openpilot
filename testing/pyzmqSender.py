@@ -52,4 +52,4 @@ while True:
             "seq_number" : l_seq
         }
         print(msg)
-        cs_socket.send_json(msg)
+        l_socket.send_json(msg)
