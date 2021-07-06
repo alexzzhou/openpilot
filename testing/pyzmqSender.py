@@ -26,9 +26,10 @@ socket.bind("tcp://"+current_ip+":9000")
 
 current_num = 1
 while True:
-    current_num += 1
-    sm.update(4)
-    data = sm['carState']
-    msg = to_json(data)
-    msg["seq_number"] = current_num
-    socket.send_json(msg)
+    sm.update(1)
+    if sm.updated(['carState']):
+        data = sm['carState']
+        msg = to_json(data)
+        current_num += 1
+        msg["seq_number"] = current_num
+        socket.send_json(msg)
