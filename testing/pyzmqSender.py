@@ -12,7 +12,8 @@ def format_cs(data):
         "vEgoRaw" : data.vEgoRaw,     
         "yawRate" : data.yawRate,     
         "standstill" : data.standstill,
-        "seq_number": 0
+        "seq_number": 0,
+        "type" : "carState"
 
     }
     return dict
@@ -26,15 +27,14 @@ cs_socket = context.socket(zmq.PUB)
 cs_socket.bind("tcp://"+current_ip+":9000")
 
 l_socket = context.socket(zmq.PUB)
-l_socket.bind("tcp://"+current_ip+":9001")
+l_socket.bind("tcp://"+current_ip+":9000")
 
 cs_seq = 0
 l_seq = 0
 
 while True:
-    sm.update(10)
+    sm.update(5)
     
-    """
     if sm.updated['carState']:
         data = sm['carState']
         msg = format_cs(data)
@@ -42,14 +42,15 @@ while True:
         msg["seq_number"] = cs_seq
         print(msg)
         cs_socket.send_json(msg)
-    """
 
     if sm.updated['liveLocationKalman']:
         data = sm['liveLocationKalman']
         l_seq += 1
         msg = {
             "position" : data.positionECEF.value,
-            "seq_number" : l_seq
+            "seq_number" : l_seq,
+            "type" : "location"
         }
+
         print(msg)
         cs_socket.send_json(msg)
