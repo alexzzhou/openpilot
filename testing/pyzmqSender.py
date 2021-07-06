@@ -4,7 +4,7 @@ from cereal import log
 import zmq
 import json
 
-def to_json(data):
+def format_cs(data):
     dict = {
 
         "vEgo" : data.vEgo,         
@@ -17,22 +17,34 @@ def to_json(data):
     }
     return dict
 
-sm = messaging.SubMaster(['carState'])
+sm = messaging.SubMaster(['carState', 'liveLocationKalman'])
 
 context = zmq.Context()
-socket = context.socket(zmq.PUB)
+
+cs_socket = context.socket(zmq.PUB)
 current_ip = input("Current IP: ")
-socket.bind("tcp://"+current_ip+":9000")
+cs_socket.bind("tcp://"+current_ip+":9000")
+
+l_socket = context.socket(zmq.PUB)
+current_ip = input("Current IP: ")
+l_socket.bind("tcp://"+current_ip+":9001")
 
 current_num = 0
 while True:
     sm.update(10)
-    print(sm.updated['carState'])
-    
+
     if sm.updated['carState']:
         data = sm['carState']
+        msg = format_cs(data)
+        current_num += 1
+        msg["seq_number"] = current_num
+        print(msg)
+        cs_socket.send_json(msg)
+
+    if sm.updated['liveLocationKalman']:
+        data = sm['liveLocationKalman']
         msg = to_json(data)
         current_num += 1
         msg["seq_number"] = current_num
         print(msg)
-        socket.send_json(msg)
+        cs_socket.send_json(msg)
