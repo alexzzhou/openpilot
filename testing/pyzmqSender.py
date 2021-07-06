@@ -48,7 +48,7 @@ while True:
         data = sm['liveLocationKalman']
         l_seq += 1
         msg = {
-            "position" : data.positionECEF.value,
+            "position" : data.positionECEF.value[0],
             "seq_number" : l_seq
         }
         print(msg)
