@@ -182,6 +182,7 @@ class SubMaster():
 
   def update_msgs(self, cur_time: float, msgs: List[capnp.lib.capnp._DynamicStructReader]) -> None:
     self.frame += 1
+    #Sets updated to false for all sockets in sm
     self.updated = dict.fromkeys(self.updated, False)
     for msg in msgs:
       if msg is None:
