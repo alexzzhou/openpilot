@@ -47,7 +47,10 @@ while True:
 
     if sm.updated['liveLocationKalman']:
         data = sm['liveLocationKalman']
-        msg = data.positionECEF.value
         l_seq += 1
+        msg = {
+            "position" : data.positionECEF.value,
+            "seq_number" : l_seq
+        }
         print(msg)
         cs_socket.send_json(msg)
