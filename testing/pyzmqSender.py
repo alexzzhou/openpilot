@@ -27,7 +27,6 @@ socket.bind("tcp://"+current_ip+":9000")
 current_num = 0
 while True:
     sm.update(10)
-    print(sm.updated['carState'])
     
     if sm.updated['carState']:
         data = sm['carState']
