@@ -79,9 +79,13 @@ def recvThread():
 def main():
     thread1 = threading.Thread(None, senderThread)
     thread2 = threading.Thread(None, recvThread)
-
+    thread1.daemon = True
+    thread2.daemon = True
     thread1.start()
     thread2.start()
+
+    while True:
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
