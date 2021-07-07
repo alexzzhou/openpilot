@@ -28,7 +28,7 @@ def senderThread():
     sm = messaging.SubMaster(['carState', 'liveLocationKalman'])
 
     context = zmq.Context()
-    current_ip = input("Current IP: ")
+    current_ip = input("Current Device IP: ")
 
     socket = context.socket(zmq.PUB)
     socket.bind("tcp://"+current_ip+":9000")
@@ -61,7 +61,7 @@ def senderThread():
 
 def recvThread():
     context = zmq.Context()
-    current_ip = input("Current IP: ")
+    current_ip = input("Connected Device IP: ")
 
     socket = context.socket(zmq.SUB)
     socket.connect("tcp://"+current_ip+":9001")

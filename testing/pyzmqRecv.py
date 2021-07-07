@@ -1,17 +1,35 @@
 import time
 import zmq
 import signal
+import threading
 
 #exit handler function
 def exit_handler(a,b):
-    print("boo")
+    print(a)
+    print(b)
 
-def main():
-
-    # Socket to talk to server
+def senderThread():
     context = zmq.Context()
     socket = context.socket(zmq.SUB)
-    current_ip = input("Current IP: ")
+    current_ip = input("Current Device IP: ")
+    socket.bind("tcp://"+current_ip+":9001")
+
+    data = {
+        "test" : "test"
+    }
+    
+    while True:
+        print(data)
+        socket.send_json(data)
+        time.sleep(0.5)
+        
+    
+
+def recvThread():
+
+    context = zmq.Context()
+    socket = context.socket(zmq.SUB)
+    current_ip = input("Connected Device IP: ")
     socket.connect("tcp://"+current_ip+":9000")
 
     socket.setsockopt(zmq.SUBSCRIBE, b'')
@@ -35,6 +53,20 @@ def main():
     
     #end = time.perf_counter()
     #print((end-start)/(5000-start_index))
+
+def main():
+    thread1 = threading.Thread(None, recvThread)
+    thread2 = threading.Thread(None, senderThread)
+    
+    thread1.daemon = True
+    thread2.daemon = True
+    thread1.start()
+    thread2.start()
+
+    while True:
+        time.sleep(1)
+    
+    
 
 if __name__ == "__main__":
     main()
