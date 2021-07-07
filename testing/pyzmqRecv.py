@@ -10,7 +10,7 @@ def exit_handler(a,b):
 
 def senderThread():
     context = zmq.Context()
-    socket = context.socket(zmq.SUB)
+    socket = context.socket(zmq.PUB)
     current_ip = input("Current Device IP: ")
     socket.bind("tcp://"+current_ip+":9001")
 
@@ -40,15 +40,15 @@ def recvThread():
     cs_hist = []
     l_hist = []
 
-    signal.signal(signal.SIGINT, exit_handler)
-
     while True:
         data = socket.recv_json()
         if data["type"] == "carState":
             cs_hist.append(data)
+            
         
         elif data["type"] == "location":
             l_hist.append(data)
+            print(data)
 
     
     #end = time.perf_counter()
