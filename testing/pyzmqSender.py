@@ -58,12 +58,28 @@ def senderThread():
             l_socket.send_json(msg)
 
 def recvThread():
+    context = zmq.Context()
+    current_ip = input("Current IP: ")
+
+    socket = context.socket(zmq.SUB)
+    socket.connect("tcp://"+current_ip+":9001")
+
+    socket.setsockopt(zmq.SUBSCRIBE, b'')
+
+    data_hist = []
+
+    while True:
+        data = socket.recv_json()
+        data_hist.append(data)     
     
-    return
 
 
 def main():
     thread1 = threading.thread(senderThread)
+    thread2 = threading.thread(recvThread)
+
+    thread1.start()
+    thread2.start()
 
 if __name__ == "__main__":
     main()
