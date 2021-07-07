@@ -80,8 +80,8 @@ def recvThread():
 
 
 def main():
-    thread1 = threading.Thread(senderThread)
-    thread2 = threading.Thread(recvThread)
+    thread1 = threading.Thread(None, senderThread)
+    thread2 = threading.Thread(None, recvThread)
 
     thread1.start()
     thread2.start()
