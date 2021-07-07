@@ -3,7 +3,7 @@ import zmq
 import signal
 
 #exit handler function
-def exit_handler():
+def exit_handler(a,b):
     print("boo")
 
 def main():

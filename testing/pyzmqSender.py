@@ -2,7 +2,7 @@ import time
 import cereal.messaging as messaging
 from cereal import log
 import zmq
-import json
+import threading
 
 def format_cs(data):
     dict = {
@@ -18,39 +18,52 @@ def format_cs(data):
     }
     return dict
 
-sm = messaging.SubMaster(['carState', 'liveLocationKalman'])
-
-context = zmq.Context()
-current_ip = input("Current IP: ")
-
-cs_socket = context.socket(zmq.PUB)
-cs_socket.bind("tcp://"+current_ip+":9000")
-
-l_socket = context.socket(zmq.PUB)
-l_socket.bind("tcp://"+current_ip+":9000")
-
-cs_seq = 0
-l_seq = 0
-
-while True:
-    sm.update(5)
+def senderThread():
     
-    if sm.updated['carState']:
-        data = sm['carState']
-        msg = format_cs(data)
-        cs_seq += 1
-        msg["seq_number"] = cs_seq
-        print(msg)
-        cs_socket.send_json(msg)
+    sm = messaging.SubMaster(['carState', 'liveLocationKalman'])
 
-    if sm.updated['liveLocationKalman']:
-        data = sm['liveLocationKalman']
-        l_seq += 1
-        msg = {
-            "position" : (data.positionECEF.value[0], data.positionECEF.value[1], data.positionECEF.value[2]),
-            "seq_number" : l_seq,
-            "type" : "location"
-        }
+    context = zmq.Context()
+    current_ip = input("Current IP: ")
 
-        print(msg)
-        l_socket.send_json(msg)
+    cs_socket = context.socket(zmq.PUB)
+    cs_socket.bind("tcp://"+current_ip+":9000")
+
+    l_socket = context.socket(zmq.PUB)
+    l_socket.bind("tcp://"+current_ip+":9000")
+
+    cs_seq = 0
+    l_seq = 0
+
+    while True:
+        sm.update(5)
+        
+        if sm.updated['carState']:
+            data = sm['carState']
+            msg = format_cs(data)
+            cs_seq += 1
+            msg["seq_number"] = cs_seq
+            print(msg)
+            cs_socket.send_json(msg)
+
+        if sm.updated['liveLocationKalman']:
+            data = sm['liveLocationKalman']
+            l_seq += 1
+            msg = {
+                "position" : (data.positionECEF.value[0], data.positionECEF.value[1], data.positionECEF.value[2]),
+                "seq_number" : l_seq,
+                "type" : "location"
+            }
+
+            print(msg)
+            l_socket.send_json(msg)
+
+def recvThread():
+    
+    return
+
+
+def main():
+    thread1 = threading.thread(senderThread)
+
+if __name__ == "__main__":
+    main()
