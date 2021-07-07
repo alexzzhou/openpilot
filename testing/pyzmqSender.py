@@ -4,6 +4,11 @@ from cereal import log
 import zmq
 import threading
 
+class testThread(threading.Thread):
+    
+    def run():
+        print("Starting " + self.name)
+
 def format_cs(data):
     dict = {
 
@@ -75,8 +80,8 @@ def recvThread():
 
 
 def main():
-    thread1 = threading.thread(senderThread)
-    thread2 = threading.thread(recvThread)
+    thread1 = threading.Thread(senderThread)
+    thread2 = threading.Thread(recvThread)
 
     thread1.start()
     thread2.start()
