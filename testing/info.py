@@ -5,7 +5,7 @@ sm = messaging.SubMaster(['sendcan', 'controlsState', 'carState','carControl', '
 
 while True:
     sm.update(0)
-    state = sm['driverCameraState']
-    if state.updated:
+    if sm.updated['driverCameraState']:
+        state = sm['driverCameraState']
         print(state)
         time.sleep(1)
