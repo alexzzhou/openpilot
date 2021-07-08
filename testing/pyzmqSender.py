@@ -43,8 +43,7 @@ def senderThread():
             data = sm['carState']
             msg = format_cs(data)
             cs_seq += 1
-            msg["seq_number"] = cs_seq
-            print(msg)
+            msg["seq_number"] = cs_seq 
             socket.send_json(msg)
 
         if sm.updated['liveLocationKalman']:
@@ -56,7 +55,6 @@ def senderThread():
                 "type" : "location"
             }
 
-            print(msg)
             socket.send_json(msg)
 
 def recvThread():
@@ -72,7 +70,9 @@ def recvThread():
 
     while True:
         data = socket.recv_json()
-        data_hist.append(data)     
+        data_hist.append(data)
+        print(data)
+        time.sleep(0.5)   
     
 
 
